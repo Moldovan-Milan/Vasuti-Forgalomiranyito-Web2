@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vasúti Forgalomirányító Szimulátor</title>
+  <link rel="stylesheet" href="./style.css">
+  <script type="module" src="./js/app.js"></script>
+</head>
+<body>
+
+  <!-- KEZDŐKÉPERNYŐ -->
+  <section id="screen-menu" class="screen">
+    <header class="menu-header">
+      <h1>Vasúti Forgalomirányító és Váltóállomás Szimulátor</h1>
+      <p class="subtitle">Légy te a Nagy Csomóponti Pályaudvar új diszpécsere!</p>
+    </header>
+
+    <main class="menu-grid">
+      <article class="panel">
+        <h2>Új szimuláció</h2>
+
+        <label class="field">
+          <span>Játékos neve</span>
+          <input class="name-input" type="text" maxlength="20" autocomplete="off" placeholder="Pl. Kovács Béla">
+        </label>
+        <p class="field-error" role="alert"></p>
+
+        <fieldset class="levels">
+          <legend>Nehézségi szint</legend>
+          <label class="level-card">
+            <input type="radio" name="level" value="1" checked>
+            <span><strong>Könnyű</strong> – Kitérő vágány jelzőkkel (4 vonat)</span>
+          </label>
+          <label class="level-card">
+            <input type="radio" name="level" value="2">
+            <span><strong>Közepes</strong> – Rendező-pályaudvar (5 vonat)</span>
+          </label>
+          <label class="level-card">
+            <input type="radio" name="level" value="3">
+            <span><strong>Nehéz</strong> – Fejpályaudvari csúcsforgalom (6 vonat)</span>
+          </label>
+          <label class="level-card">
+            <input type="radio" name="level" value="4">
+            <span><strong>Extrém nehéz</strong> – Nagy rendezőpályaudvar (8 vonat)</span>
+          </label>
+        </fieldset>
+
+        <div class="button-row">
+          <button class="btn primary" data-action="start">Szimuláció Indítása</button>
+          <button class="btn" data-action="load">Mentett játék betöltése</button>
+        </div>
+        <p class="menu-msg" role="status"></p>
+      </article>
+
+      <article class="panel">
+        <h2>Játékszabályzat és irányítás</h2>
+        <details open>
+          <summary>Irányítás</summary>
+          <ul>
+            <li><strong>Bal kattintás a váltón</strong> (kék kör): a váltó a következő lehetséges állásba lép. A sárga vonal a kimenő ágat, a halványkék a bejövő ágat mutatja.</li>
+            <li><strong>Bal kattintás a fényjelzőn</strong>: Vörös (Megállj!) ↔ Zöld (Szabad az út!).</li>
+            <li><strong>Jobb kattintás a vonaton</strong>: kézi vészfék. Ismételt jobb kattintásra a vonat feloldja a féket.</li>
+          </ul>
+        </details>
+        <details open>
+          <summary>Szabályok</summary>
+          <ul>
+            <li>Minden vonatnak a saját színével megegyező peronra kell beérnie.</li>
+            <li>Ha két szerelvény 75 képpontnál közelebb kerül, figyelmeztetés jelenik meg; kritikus közelségnél ütközés és azonnali Game Over.</li>
+            <li>Vörös jelzés előtt a vonat megáll („TILOS”), zöldre továbbindul.</li>
+            <li>Rossz állású váltóra vagy vágányvégre futó vonat kisiklik (hibapont). Téves peron szintén hibapont.</li>
+            <li>Kerüld el a holtpontot: ha minden vonat áll, a forgalom megbénulhat.</li>
+            <li>Ranglista: előbb a hibátlan futamok, majd a leggyorsabb idő számít.</li>
+          </ul>
+        </details>
+      </article>
+
+      <article class="panel wide">
+        <h2>Diszpécserek Dicsőségkönyve</h2>
+        <label class="field inline">
+          <span>Pálya</span>
+          <select data-lb-select>
+            <option value="1">1. szint – Könnyű</option>
+            <option value="2">2. szint – Közepes</option>
+            <option value="3">3. szint – Nehéz</option>
+            <option value="4">4. szint - Extrém nehéz</option>
+          </select>
+        </label>
+        <div class="lb-table"></div>
+      </article>
+    </main>
+  </section>
+
+  <!-- JÁTÉKKÉPERNYŐ -->
+  <section id="screen-game" class="screen hidden">
+    <header class="hud">
+      <div class="hud-item"><span class="hud-label">Játékos</span><strong data-hud="player">–</strong></div>
+      <div class="hud-item grow"><span class="hud-label">Pálya</span><strong data-hud="level">–</strong></div>
+      <div class="hud-item"><span class="hud-label">Idő</span><strong data-hud="time">00:00</strong></div>
+      <div class="hud-item"><span class="hud-label">Célba ért</span><strong data-hud="traffic">0 / 0</strong></div>
+      <div class="hud-item"><span class="hud-label">Hiba / Késés</span><strong data-hud="errors">0</strong></div>
+    </header>
+
+    <nav class="controls">
+      <button class="btn" data-action="pause">Szünet</button>
+      <button class="btn danger" data-action="reset">Újraindítás</button>
+      <button class="btn" data-action="save">Játékállás mentése</button>
+      <button class="btn" data-action="menu">Főmenü</button>
+    </nav>
+
+    <div class="board-wrap">
+      <canvas class="board" width="1000" height="560"></canvas>
+    </div>
+
+    <p class="level-hint" data-hud="hint"></p>
+
+    <section class="timetable-box">
+      <h3>Menetrend</h3>
+      <pre class="timetable" data-hud="timetable"></pre>
+    </section>
+
+    <footer class="help">
+      <p><strong>Irányítás:</strong> bal kattintás: váltó állítása / fényjelző kapcsolása (Zöld/Piros) | jobb kattintás: vonat vészfékezése.</p>
+      <p><strong>Szabály:</strong> állíts vörös jelzést, ha a vágány foglalt! A piros jelzésnél várakozó vonat nem ütközik az előtte haladóval.</p>
+    </footer>
+  </section>
+
+  <div class="toast hidden" role="status"></div>
+
+  <!-- Eseményértesítő modális kártya -->
+  <div class="modal hidden">
+    <div class="card" role="dialog" aria-modal="true">
+      <h2 data-modal="title"></h2>
+      <p data-modal="text"></p>
+      <div class="button-row">
+        <button class="btn primary" data-action="retry">Újrakezdés</button>
+        <button class="btn" data-action="menu">Főmenü</button>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
