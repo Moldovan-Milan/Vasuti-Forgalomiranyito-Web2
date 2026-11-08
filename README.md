@@ -4,8 +4,8 @@
 * **Név:** Moldován Milán János
 * **Neptun kód:** R5MTWJ
 * **Szak / Képzés:** Programtervező informatikus BSc (ELTE IK)
-* **Bemutató videó linkje (OneDrive):** [Videó megtekintése](https://...)
-* **A futtatható program linkje (GitHub Pages): https://moldovan-milan.github.io/Vasuti-Forgalomiranyito-Web2/**
+* **Bemutató videó linkje (OneDrive):** [Videó megtekintése](https://ikelte-my.sharepoint.com/:v:/g/personal/r5mtwj_inf_elte_hu/IQA4-cKbSt3zTKk3qPVwXkdMATRwqNnkqKSQxOFFVLkiY2U?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=Pc1RKx)
+* **A futtatható program linkje (GitHub Pages):** [Weboldal megtekintése](https://moldovan-milan.github.io/Vasuti-Forgalomiranyito-Web2/)
 
 ---
 
@@ -59,6 +59,6 @@ Tudomásul veszem, hogy a személyes szóbeli kódvédésen a kód minden egyes 
 - [x] Nincsenek getElementById, DOMContentLoaded, alert() hívások
 - [x] Tiszta Vanilla JS (nincs külső könyvtár vagy framework)
 - [x] Játékállás mentése és visszatöltése localStorage segítségével
-- [ ] A 3-5 perces narrált bemutató videó feltöltve és megosztható OneDrive linken
+- [x] A 3-5 perces narrált bemutató videó feltöltve és megosztható OneDrive linken
 - [x] Online deployment, a program elérhető valamilyen online platformon, ennek
   elérhetőségét feltüntettem itt a README.md file elején
