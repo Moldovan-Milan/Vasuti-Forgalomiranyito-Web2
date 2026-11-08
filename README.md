@@ -5,7 +5,7 @@
 * **Neptun kód:** R5MTWJ
 * **Szak / Képzés:** Programtervező informatikus BSc (ELTE IK)
 * **Bemutató videó linkje (OneDrive):** [Videó megtekintése](https://...)
-* **A futtatható program linkje (Vercel, Netlify, Firebase, stb.):**
+* **A futtatható program linkje (GitHub Pages): https://moldovan-milan.github.io/Vasuti-Forgalomiranyito-Web2/**
 
 ---
 
@@ -60,5 +60,5 @@ Tudomásul veszem, hogy a személyes szóbeli kódvédésen a kód minden egyes 
 - [x] Tiszta Vanilla JS (nincs külső könyvtár vagy framework)
 - [x] Játékállás mentése és visszatöltése localStorage segítségével
 - [ ] A 3-5 perces narrált bemutató videó feltöltve és megosztható OneDrive linken
-- [ ] Online deployment, a program elérhető valamilyen online platformon, ennek
+- [x] Online deployment, a program elérhető valamilyen online platformon, ennek
   elérhetőségét feltüntettem itt a README.md file elején
